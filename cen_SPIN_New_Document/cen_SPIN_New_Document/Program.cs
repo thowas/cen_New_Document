@@ -33,6 +33,7 @@ namespace cen_SPIN_New_Document
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
+            my_Static.Languange();
 
             if (my_Static.AlreadyRunning())
             {

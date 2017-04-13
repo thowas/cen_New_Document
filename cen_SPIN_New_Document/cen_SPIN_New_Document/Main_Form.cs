@@ -48,7 +48,7 @@ namespace cen_SPIN_New_Document
         public New()
         {
             InitializeComponent();
-            
+
         }
 
 
@@ -60,9 +60,9 @@ namespace cen_SPIN_New_Document
         private void New_Load(object sender, EventArgs e)
         {
             Properties.Settings.Default.Save();
-            string[] setting = new string [Properties.Settings.Default.Bezeichnung1.Count];
-            Properties.Settings.Default.Bezeichnung1.CopyTo(setting ,0 );
-           
+            string[] setting = new string[Properties.Settings.Default.Betriebsmittelart.Count];
+            Properties.Settings.Default.Betriebsmittelart.CopyTo(setting, 0);
+
             DataTable dt = new DataTable();
             DataColumn dc1 = new DataColumn("item");
 
@@ -77,7 +77,7 @@ namespace cen_SPIN_New_Document
             comboBoxBetriebsmittelart.DisplayMember = "item";
 
 
-           Object CATIA = Marshal.GetActiveObject("CATIA.Application");
+            Object CATIA = Marshal.GetActiveObject("CATIA.Application");
             catiaapp = (INFITF.Application)CATIA;
 
             my_Static.checkCatiaType();
@@ -205,9 +205,22 @@ namespace cen_SPIN_New_Document
             Parameters pParams;
             Parameter pParam;
             bool bstr = false;
+            string strProp = "";
 
             Object CATIA = Marshal.GetActiveObject("CATIA.Application");
             catiaapp = (INFITF.Application)CATIA;
+
+
+            if (my_Static.lanuange == "EN")
+            {
+
+                strProp = "Properties\\";
+            }
+            else if (my_Static.lanuange == "D")
+            {
+
+                strProp = "Eigenschaften\\";
+            }
 
             if (my_Static.DocType == "Product")
             {
@@ -220,20 +233,43 @@ namespace cen_SPIN_New_Document
 
                     if ((bstr = pParams.Item(i).get_Name().Contains("Equipment-Nummer") == true))
                     {
-                        pParam = pParams.Item("Properties\\Equipment-Nummer");
-                        pParam.ValuateFromString(textBoxEquipmentNumber.Text);
+                        try
+                        {
+                            pParam = pParams.Item(strProp + "Equipment-Nummer");
+                            pParam.ValuateFromString(textBoxEquipmentNumber.Text);
+                        }
+                        catch
+                        {
+                            pParam = pParams.Item("Equipment-Nummer");
+                            pParam.ValuateFromString(textBoxEquipmentNumber.Text);
+                        }
                     }
                     else if ((bstr = pParams.Item(i).get_Name().Contains("Betriebsmittelart") == true))
                     {
-                        pParam = pParams.Item("Properties\\Betriebsmittelart");
-                        pParam.ValuateFromString(comboBoxBetriebsmittelart.Text);
+                        try
+                        {
+                            pParam = pParams.Item(strProp + "Betriebsmittelart");
+                            pParam.ValuateFromString(comboBoxBetriebsmittelart.Text);
+                        }
+                        catch
+                        {
+                            pParam = pParams.Item("Betriebsmittelart");
+                            pParam.ValuateFromString(comboBoxBetriebsmittelart.Text);
+                        }
                     }
                     else if ((bstr = pParams.Item(i).get_Name().Contains("Bezeichnung") == true))
                     {
-                        pParam = pParams.Item("Properties\\Bezeichnung");
-                        pParam.ValuateFromString(textBox_Bezeichnung2.Text);
+                        try
+                        {
+                            pParam = pParams.Item(strProp + "Bezeichnung");
+                            pParam.ValuateFromString(textBox_Bezeichnung2.Text);
+                        }
+                        catch
+                        {
+                            pParam = pParams.Item("Bezeichnung");
+                            pParam.ValuateFromString(textBox_Bezeichnung2.Text);
+                        }
                     }
-
 
                 }
 
@@ -249,21 +285,43 @@ namespace cen_SPIN_New_Document
 
                     if ((bstr = pParams.Item(i).get_Name().Contains("Equipment-Nummer") == true))
                     {
-                        pParam = pParams.Item("Properties\\Equipment-Nummer");
-                        pParam.ValuateFromString(textBoxEquipmentNumber.Text);
+                        try
+                        {
+                            pParam = pParams.Item(strProp + "Equipment-Nummer");
+                            pParam.ValuateFromString(textBoxEquipmentNumber.Text);
+                        }
+                        catch
+                        {
+                            pParam = pParams.Item("Equipment-Nummer");
+                            pParam.ValuateFromString(textBoxEquipmentNumber.Text);
+                        }
                     }
                     else if ((bstr = pParams.Item(i).get_Name().Contains("Betriebsmittelart") == true))
                     {
-                        pParam = pParams.Item("Properties\\Betriebsmittelart");
-                        pParam.ValuateFromString(comboBoxBetriebsmittelart.Text);
+                        try
+                        {
+                            pParam = pParams.Item(strProp + "Betriebsmittelart");
+                            pParam.ValuateFromString(comboBoxBetriebsmittelart.Text);
+                        }
+                        catch
+                        {
+                            pParam = pParams.Item("Betriebsmittelart");
+                            pParam.ValuateFromString(comboBoxBetriebsmittelart.Text);
+                        }
                     }
                     else if ((bstr = pParams.Item(i).get_Name().Contains("Bezeichnung") == true))
                     {
-                        pParam = pParams.Item("Properties\\Bezeichnung");
-                        pParam.ValuateFromString(textBox_Bezeichnung2.Text);
+                        try
+                        {
+                            pParam = pParams.Item(strProp + "Bezeichnung");
+                            pParam.ValuateFromString(textBox_Bezeichnung2.Text);
+                        }
+                        catch
+                        {
+                            pParam = pParams.Item("Bezeichnung");
+                            pParam.ValuateFromString(textBox_Bezeichnung2.Text);
+                        }
                     }
-
-
                 }
 
             }
@@ -514,60 +572,60 @@ namespace cen_SPIN_New_Document
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-                strcurrentSelection = e.Node.Text;
-                if (e.Node.SelectedImageIndex == 0)
+            strcurrentSelection = e.Node.Text;
+            if (e.Node.SelectedImageIndex == 0)
+            {
+                if (e.Node.Text != "CATDrawing Template")
                 {
-                    if (e.Node.Text != "CATDrawing Template")
-                    {
-                        strcurrentType = "CATDrawing Template";
-                        comboBox_Type.Enabled = true;
-                        comboBox_Type.Text = "CATDrawing";
+                    strcurrentType = "CATDrawing Template";
+                    comboBox_Type.Enabled = true;
+                    comboBox_Type.Text = "CATDrawing";
 
-                        if (textBox_Name.TextLength > 0 || comboBoxAutoN.Text != "")
+                    if (textBox_Name.TextLength > 0 || comboBoxAutoN.Text != "")
+                    {
+                        if (textBoxEquipmentNumber.TextLength > 0 && comboBoxBetriebsmittelart.Text != "" && textBox_Bezeichnung2.TextLength > 0)
                         {
-                            if (textBoxEquipmentNumber.TextLength > 0 && comboBoxBetriebsmittelart.Text != "" && textBox_Bezeichnung2.TextLength > 0)
-                            {
-                                button_OK.Enabled = true;
-                            }
+                            button_OK.Enabled = true;
                         }
                     }
                 }
-                else if (e.Node.SelectedImageIndex == 1)
+            }
+            else if (e.Node.SelectedImageIndex == 1)
+            {
+                button_InsertCATPart.Enabled = true;
+                if (e.Node.Text != "CATPart Template")
                 {
-                    button_InsertCATPart.Enabled = true;
-                    if (e.Node.Text != "CATPart Template")
-                    {
-                        strcurrentType = "CATPart Template";
-                        comboBox_Type.Enabled = true;
-                        comboBox_Type.Text = "CATPart";
+                    strcurrentType = "CATPart Template";
+                    comboBox_Type.Enabled = true;
+                    comboBox_Type.Text = "CATPart";
 
-                        if (textBox_Name.TextLength > 0 || comboBoxAutoN.Text != "")
+                    if (textBox_Name.TextLength > 0 || comboBoxAutoN.Text != "")
+                    {
+                        if (textBoxEquipmentNumber.TextLength > 0 && comboBoxBetriebsmittelart.Text != "" && textBox_Bezeichnung2.TextLength > 0)
                         {
-                            if (textBoxEquipmentNumber.TextLength > 0 && comboBoxBetriebsmittelart.Text != "" && textBox_Bezeichnung2.TextLength > 0)
-                            {
-                                button_OK.Enabled = true;
-                            }
+                            button_OK.Enabled = true;
                         }
                     }
                 }
-                else if (e.Node.SelectedImageIndex == 2)
+            }
+            else if (e.Node.SelectedImageIndex == 2)
+            {
+                if (e.Node.Text != "CATProduct Template")
                 {
-                    if (e.Node.Text != "CATProduct Template")
-                    {
-                        strcurrentType = "CATProduct Template";
-                        comboBox_Type.Enabled = true;
-                        comboBox_Type.Text = "CATProduct";
+                    strcurrentType = "CATProduct Template";
+                    comboBox_Type.Enabled = true;
+                    comboBox_Type.Text = "CATProduct";
 
-                        if (textBox_Name.TextLength > 0 || comboBoxAutoN.Text != "")
+                    if (textBox_Name.TextLength > 0 || comboBoxAutoN.Text != "")
+                    {
+                        if (textBoxEquipmentNumber.TextLength > 0 && comboBoxBetriebsmittelart.Text != "" && textBox_Bezeichnung2.TextLength > 0)
                         {
-                            if (textBoxEquipmentNumber.TextLength > 0 && comboBoxBetriebsmittelart.Text != "" && textBox_Bezeichnung2.TextLength > 0)
-                            {
-                                button_OK.Enabled = true;
-                            }
+                            button_OK.Enabled = true;
                         }
                     }
-
                 }
+
+            }
             else
             {
                 button_OK.Enabled = false;
@@ -618,7 +676,7 @@ namespace cen_SPIN_New_Document
 
         private void radioButton_Insert_Part_CheckedChanged(object sender, EventArgs e)
         {
-          
+
         }
 
         private void comboBoxAutoN_SelectedIndexChanged(object sender, EventArgs e)

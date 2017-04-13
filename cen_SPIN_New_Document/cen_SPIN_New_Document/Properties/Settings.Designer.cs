@@ -29,9 +29,9 @@ namespace cen_SPIN_New_Document.Properties {
             "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
             "tring>Spritzwerkzeug</string>\r\n  <string>Duroplastwerkezug</string>\r\n</ArrayOfSt" +
             "ring>")]
-        public global::System.Collections.Specialized.StringCollection Bezeichnung1 {
+        public global::System.Collections.Specialized.StringCollection Betriebsmittelart {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Bezeichnung1"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["Betriebsmittelart"]));
             }
         }
     }

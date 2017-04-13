@@ -38,6 +38,10 @@ namespace cen_SPIN_New_Document
         public static bool bTreeParam = false;
         public static bool bPropParam = false;
         public static Parameters oParam;
+        public static string lanuange = "EN";
+        public static string Bulid_Daten = "13.04.2017";
+        public static string Titel = Assembly.GetExecutingAssembly().GetName().Name;
+        public static string Assembly_Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public static bool CheckIfAProcessIsRunning(string processname)
         {
@@ -128,7 +132,56 @@ namespace cen_SPIN_New_Document
             }
        
         }
-     
+
+
+        public static string Languange()
+        {
+            INFITF.Application catiaapp;
+            Object CATIA = System.Runtime.InteropServices.Marshal.GetActiveObject("CATIA.Application");
+            catiaapp = (INFITF.Application)CATIA;
+            Documents Doc;
+            Document Partdoc;
+
+            try
+            {
+                string strStatusBar = catiaapp.get_StatusBar();
+                if (strStatusBar.Contains("Select") == true)
+                {
+                    return lanuange = "EN";
+                }
+                if (strStatusBar.Contains("Ein") == true)
+                {
+                    return lanuange = "D";
+                }
+                else
+                {
+                    Doc = catiaapp.Documents;
+                    Partdoc = Doc.Add("Part");
+                    strStatusBar = catiaapp.get_StatusBar();
+
+                    if (strStatusBar.Contains("Select") == true)
+                    {
+                        Partdoc.Close();
+                        return lanuange = "EN";
+                    }
+                    else
+                    {
+                        Partdoc.Close();
+                        return lanuange = "D";
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //logger = new FileLogger(LogLevels.Error, myStatic.Catia_User_Tmp_Path + myStatic.KundenName + "\\.log\\Error.log");
+                //logger.Log(LogLevels.Error, ex.ToString() + Environment.NewLine + Environment.NewLine + "  Languange()");
+                //logger.EndLogging();
+                return lanuange = "EN";
+            }
+
+        }
+
 
     }
 }
