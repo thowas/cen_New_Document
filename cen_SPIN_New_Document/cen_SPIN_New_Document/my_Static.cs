@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Diagnostics;
 //######################################
@@ -12,7 +13,8 @@ using ProductStructureTypeLib;
 using KnowledgewareTypeLib;
 
 
-namespace cen_SPIN_New_Document
+
+namespace cen_3DEXPERIENCE_New_Document
 {
 
     //==============================================================================
@@ -27,7 +29,7 @@ namespace cen_SPIN_New_Document
     //==============================================================================
     public class my_Static
     {
-
+        public static ILogger logger;
         public static string[] oParamArry;
         public static PartDocument oPartDoc;
         public static ProductDocument oProdDoc;
@@ -42,6 +44,11 @@ namespace cen_SPIN_New_Document
         public static string Bulid_Daten = "13.04.2017";
         public static string Titel = Assembly.GetExecutingAssembly().GetName().Name;
         public static string Assembly_Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string KundenName = Properties.Settings.Default.Kunden_Name;
+        public static string User_Tmp_Path = Path.GetTempPath();
+        public static int catia_Release;
+        public static int catia_Version;
+        public static int catia_SP;
 
         public static bool CheckIfAProcessIsRunning(string processname)
         {
@@ -78,57 +85,61 @@ namespace cen_SPIN_New_Document
         {
 
             //Allgemein Variablen ----------------------
-            INFITF.Application catiaapp;
+            Application catiaapp;
             PartDocument activedocpart;
-            Document activedocdrawing;
+            DrawingDocument activedocdrawing;
             ProductDocument activedocproduct;
             Product prod;
 
             try
             {
                 Object CATIA = Marshal.GetActiveObject("CATIA.Application");
-                catiaapp = (INFITF.Application)CATIA;
+                catiaapp = (Application)CATIA;
 
-
-
-                activedocproduct = catiaapp.ActiveDocument as ProductDocument;
-
-                if (activedocproduct == null)
-                {
-
-                    activedocpart = catiaapp.ActiveDocument as PartDocument;
-
-                    if (activedocpart == null)
+                    activedocproduct = catiaapp.ActiveDocument as ProductDocument;
+                    
+                    if (activedocproduct == null)
                     {
 
-                        activedocdrawing = catiaapp.ActiveDocument as Document;
+                        activedocpart = catiaapp.ActiveDocument as PartDocument;
 
-                        if (activedocdrawing == null)
+                        if (activedocpart == null)
                         {
-                            my_Static.DocType = "Nothing";
+
+                            activedocdrawing = catiaapp.ActiveDocument as DrawingDocument;
+
+                            if (activedocdrawing == null)
+                            {
+                                my_Static.DocType = "Nothing";
+                                my_Static.logger = new FileLogger(LogLevels.Error, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Error.log");
+                                my_Static.logger.Log(LogLevels.Error, Environment.NewLine + "  kein CATPart ; CATProduct ; CATDrawing geladen !");
+                                my_Static.logger.EndLogging();
+                            }
+                            else
+                            {
+                                my_Static.DocType = "Drawing";
+
+                            }
                         }
                         else
                         {
-                            my_Static.DocType = "Drawing";
-
+                            my_Static.DocType = "Part";
+                            prod = activedocpart.Product;
                         }
                     }
                     else
                     {
-                        my_Static.DocType = "Part";
-                        prod = activedocpart.Product;
+                        my_Static.DocType = "Product";
+                        prod = activedocproduct.Product;
                     }
                 }
-                else
-                {
-                    my_Static.DocType = "Product";
-                    prod = activedocproduct.Product;
-                }
-            }
             catch
             {
+                my_Static.DocType = "Nothing";
+                //my_Static.logger = new FileLogger(LogLevels.Error, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Error.log");
+                //my_Static.logger.Log(LogLevels.Error, Environment.NewLine + "  kein Dokument geladen !");
+                //my_Static.logger.EndLogging();
 
-               
             }
        
         }
@@ -136,9 +147,9 @@ namespace cen_SPIN_New_Document
 
         public static string Languange()
         {
-            INFITF.Application catiaapp;
-            Object CATIA = System.Runtime.InteropServices.Marshal.GetActiveObject("CATIA.Application");
-            catiaapp = (INFITF.Application)CATIA;
+            Application catiaapp;
+            Object CATIA = Marshal.GetActiveObject("CATIA.Application");
+            catiaapp = (Application)CATIA;
             Documents Doc;
             Document Partdoc;
 
@@ -172,11 +183,8 @@ namespace cen_SPIN_New_Document
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
-                //logger = new FileLogger(LogLevels.Error, myStatic.Catia_User_Tmp_Path + myStatic.KundenName + "\\.log\\Error.log");
-                //logger.Log(LogLevels.Error, ex.ToString() + Environment.NewLine + Environment.NewLine + "  Languange()");
-                //logger.EndLogging();
                 return lanuange = "EN";
             }
 

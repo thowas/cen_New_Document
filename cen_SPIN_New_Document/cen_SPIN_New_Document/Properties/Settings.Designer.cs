@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace cen_SPIN_New_Document.Properties {
+namespace cen_3DEXPERIENCE_New_Document.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -32,6 +32,24 @@ namespace cen_SPIN_New_Document.Properties {
         public global::System.Collections.Specialized.StringCollection Betriebsmittelart {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["Betriebsmittelart"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Hirschmann")]
+        public string Kunden_Name {
+            get {
+                return ((string)(this["Kunden_Name"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LogFile {
+            get {
+                return ((bool)(this["LogFile"]));
             }
         }
     }

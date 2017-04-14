@@ -1,4 +1,4 @@
-﻿namespace cen_SPIN_New_Document
+﻿namespace cen_3DEXPERIENCE_New_Document
 {
     partial class New
     {
@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(New));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.button_InsertCATPart = new System.Windows.Forms.Button();
+            this.comboBoxBetriebsmittelart = new System.Windows.Forms.ComboBox();
+            this.label_Bezeichnung2 = new System.Windows.Forms.Label();
+            this.textBox_Bezeichnung2 = new System.Windows.Forms.TextBox();
             this.label_Betriebsmittelart = new System.Windows.Forms.Label();
             this.label_Type = new System.Windows.Forms.Label();
             this.comboBox_Type = new System.Windows.Forms.ComboBox();
@@ -46,10 +50,6 @@
             this.button_OK = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.textBox_Bezeichnung2 = new System.Windows.Forms.TextBox();
-            this.label_Bezeichnung2 = new System.Windows.Forms.Label();
-            this.comboBoxBetriebsmittelart = new System.Windows.Forms.ComboBox();
-            this.button_InsertCATPart = new System.Windows.Forms.Button();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Catia)).BeginInit();
@@ -79,7 +79,7 @@
             this.toolStripContainer1.ContentPanel.Controls.Add(this.button_Cancel);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.button_OK);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.treeView1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(609, 407);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(609, 382);
             this.toolStripContainer1.ContentPanel.Load += new System.EventHandler(this.toolStripContainer1_ContentPanel_Load);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
@@ -91,6 +91,46 @@
             // toolStripContainer1.TopToolStripPanel
             // 
             this.toolStripContainer1.TopToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            // 
+            // button_InsertCATPart
+            // 
+            this.button_InsertCATPart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_InsertCATPart.Location = new System.Drawing.Point(326, 347);
+            this.button_InsertCATPart.Name = "button_InsertCATPart";
+            this.button_InsertCATPart.Size = new System.Drawing.Size(109, 23);
+            this.button_InsertCATPart.TabIndex = 21;
+            this.button_InsertCATPart.Text = "Insert Template";
+            this.button_InsertCATPart.UseVisualStyleBackColor = true;
+            this.button_InsertCATPart.Visible = false;
+            this.button_InsertCATPart.Click += new System.EventHandler(this.button_InsertCATPart_Click);
+            // 
+            // comboBoxBetriebsmittelart
+            // 
+            this.comboBoxBetriebsmittelart.FormattingEnabled = true;
+            this.comboBoxBetriebsmittelart.Items.AddRange(new object[] {
+            "Spritzwerkzeug",
+            "Duroplastwerkezug",
+            "Einpressvorrichtung"});
+            this.comboBoxBetriebsmittelart.Location = new System.Drawing.Point(431, 178);
+            this.comboBoxBetriebsmittelart.Name = "comboBoxBetriebsmittelart";
+            this.comboBoxBetriebsmittelart.Size = new System.Drawing.Size(166, 21);
+            this.comboBoxBetriebsmittelart.TabIndex = 20;
+            // 
+            // label_Bezeichnung2
+            // 
+            this.label_Bezeichnung2.AutoSize = true;
+            this.label_Bezeichnung2.Location = new System.Drawing.Point(346, 223);
+            this.label_Bezeichnung2.Name = "label_Bezeichnung2";
+            this.label_Bezeichnung2.Size = new System.Drawing.Size(79, 13);
+            this.label_Bezeichnung2.TabIndex = 18;
+            this.label_Bezeichnung2.Text = "Bezeichnung";
+            // 
+            // textBox_Bezeichnung2
+            // 
+            this.textBox_Bezeichnung2.Location = new System.Drawing.Point(431, 215);
+            this.textBox_Bezeichnung2.Name = "textBox_Bezeichnung2";
+            this.textBox_Bezeichnung2.Size = new System.Drawing.Size(166, 21);
+            this.textBox_Bezeichnung2.TabIndex = 17;
             // 
             // label_Betriebsmittelart
             // 
@@ -193,7 +233,7 @@
             // 
             this.pictureBox_Catia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox_Catia.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox_Catia.Image")));
-            this.pictureBox_Catia.Location = new System.Drawing.Point(0, 348);
+            this.pictureBox_Catia.Location = new System.Drawing.Point(0, 323);
             this.pictureBox_Catia.Name = "pictureBox_Catia";
             this.pictureBox_Catia.Size = new System.Drawing.Size(57, 69);
             this.pictureBox_Catia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -203,9 +243,9 @@
             // button_Cancel
             // 
             this.button_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Cancel.Image = global::cen_SPIN_New_Document.Properties.Resources.server_issue;
+            this.button_Cancel.Image = global::cen_3DEXPERIENCE_New_Document.Properties.Resources.server_issue;
             this.button_Cancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_Cancel.Location = new System.Drawing.Point(522, 372);
+            this.button_Cancel.Location = new System.Drawing.Point(522, 347);
             this.button_Cancel.Name = "button_Cancel";
             this.button_Cancel.Size = new System.Drawing.Size(75, 23);
             this.button_Cancel.TabIndex = 2;
@@ -217,9 +257,9 @@
             // 
             this.button_OK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_OK.Enabled = false;
-            this.button_OK.Image = global::cen_SPIN_New_Document.Properties.Resources.server_ok;
+            this.button_OK.Image = global::cen_3DEXPERIENCE_New_Document.Properties.Resources.server_ok;
             this.button_OK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_OK.Location = new System.Drawing.Point(441, 372);
+            this.button_OK.Location = new System.Drawing.Point(441, 347);
             this.button_OK.Name = "button_OK";
             this.button_OK.Size = new System.Drawing.Size(75, 23);
             this.button_OK.TabIndex = 1;
@@ -246,48 +286,9 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "I_CATDrawing.bmp");
+            this.imageList1.Images.SetKeyName(0, "I_Drawing.bmp");
             this.imageList1.Images.SetKeyName(1, "I_PPRTree_CATPartDocument.gif");
             this.imageList1.Images.SetKeyName(2, "I_PPRTree_CATProductDocument.gif");
-            // 
-            // textBox_Bezeichnung2
-            // 
-            this.textBox_Bezeichnung2.Location = new System.Drawing.Point(431, 215);
-            this.textBox_Bezeichnung2.Name = "textBox_Bezeichnung2";
-            this.textBox_Bezeichnung2.Size = new System.Drawing.Size(166, 21);
-            this.textBox_Bezeichnung2.TabIndex = 17;
-            // 
-            // label_Bezeichnung2
-            // 
-            this.label_Bezeichnung2.AutoSize = true;
-            this.label_Bezeichnung2.Location = new System.Drawing.Point(346, 223);
-            this.label_Bezeichnung2.Name = "label_Bezeichnung2";
-            this.label_Bezeichnung2.Size = new System.Drawing.Size(79, 13);
-            this.label_Bezeichnung2.TabIndex = 18;
-            this.label_Bezeichnung2.Text = "Bezeichnung";
-            // 
-            // comboBoxBetriebsmittelart
-            // 
-            this.comboBoxBetriebsmittelart.FormattingEnabled = true;
-            this.comboBoxBetriebsmittelart.Items.AddRange(new object[] {
-            "Spritzwerkzeug",
-            "Duroplastwerkezug",
-            "Einpressvorrichtung"});
-            this.comboBoxBetriebsmittelart.Location = new System.Drawing.Point(431, 178);
-            this.comboBoxBetriebsmittelart.Name = "comboBoxBetriebsmittelart";
-            this.comboBoxBetriebsmittelart.Size = new System.Drawing.Size(166, 21);
-            this.comboBoxBetriebsmittelart.TabIndex = 20;
-            // 
-            // button_InsertCATPart
-            // 
-            this.button_InsertCATPart.Location = new System.Drawing.Point(326, 372);
-            this.button_InsertCATPart.Name = "button_InsertCATPart";
-            this.button_InsertCATPart.Size = new System.Drawing.Size(109, 23);
-            this.button_InsertCATPart.TabIndex = 21;
-            this.button_InsertCATPart.Text = "Insert Template";
-            this.button_InsertCATPart.UseVisualStyleBackColor = true;
-            this.button_InsertCATPart.Visible = false;
-            this.button_InsertCATPart.Click += new System.EventHandler(this.button_InsertCATPart_Click);
             // 
             // New
             // 

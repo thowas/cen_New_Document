@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("cen_SPIN_New_Document")]
+[assembly: AssemblyTitle("cen_3DEXPERIENCE_New_Document")]
 [assembly: AssemblyDescription("File New From 3D Experiance 2015x")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CENIT AG")]
-[assembly: AssemblyProduct("cen_SPIN_New_Document")]
+[assembly: AssemblyProduct("cen_3DEXPERIENCE_New_Document")]
 [assembly: AssemblyCopyright("Copyright © CENIT AG 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

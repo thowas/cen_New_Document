@@ -11,9 +11,10 @@ using ProductStructureTypeLib;
 using KnowledgewareTypeLib;
 using DRAFTINGITF;
 using CD5Integ;
+
 //------------------------------------------------------
 
-namespace cen_SPIN_New_Document
+namespace cen_3DEXPERIENCE_New_Document
 {
 
     //==============================================================================
@@ -41,9 +42,7 @@ namespace cen_SPIN_New_Document
         public CD5EngineV6R2015 oCD5Engine;
         public string strcurrentSelection;
         public string strcurrentType;
-
-
-
+       
 
         public New()
         {
@@ -54,12 +53,14 @@ namespace cen_SPIN_New_Document
 
         private void button_Cancel_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Application.Exit();
+             System.Windows.Forms.Application.Exit();
         }
 
         private void New_Load(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Save();
+            my_Static.logger = new FileLogger(LogLevels.Error, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Error.log");
+
+            cen_3DEXPERIENCE_New_Document.Properties.Settings.Default.Save();
             string[] setting = new string[Properties.Settings.Default.Betriebsmittelart.Count];
             Properties.Settings.Default.Betriebsmittelart.CopyTo(setting, 0);
 
@@ -196,9 +197,31 @@ namespace cen_SPIN_New_Document
             return true;
         }
 
+
+        public void CD5_Disconnect()
+        {
+            INFITF.Application catiaapp;
+          
+            Object CATIA = Marshal.GetActiveObject("CATIA.Application");
+            catiaapp = (INFITF.Application)CATIA;
+            
+            
+            if (oCD5Engine.IsConnected())
+            {
+                oCD5Engine.Disconnect();
+
+                ILogger logger_1 = new FileLogger(LogLevels.Run, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Run.log");
+                logger_1.Log(LogLevels.Run, " CD5_Disconnect to CD5EngineV6R2015");
+                logger_1.EndLogging();
+            }
+
+        }
+
+
         public void set_Catia_Properties()
         {
             INFITF.Application catiaapp;
+            DrawingDocument drawingDocument;
             PartDocument activedocpart;
             ProductDocument activedocproduct;
             Product prod;
@@ -206,6 +229,8 @@ namespace cen_SPIN_New_Document
             Parameter pParam;
             bool bstr = false;
             string strProp = "";
+            string strDrw = "";
+            int iMatch = 0;
 
             Object CATIA = Marshal.GetActiveObject("CATIA.Application");
             catiaapp = (INFITF.Application)CATIA;
@@ -213,12 +238,12 @@ namespace cen_SPIN_New_Document
 
             if (my_Static.lanuange == "EN")
             {
-
+                strDrw = "Drawing\\";
                 strProp = "Properties\\";
             }
             else if (my_Static.lanuange == "D")
             {
-
+                strDrw = "Drawing\\";
                 strProp = "Eigenschaften\\";
             }
 
@@ -233,6 +258,7 @@ namespace cen_SPIN_New_Document
 
                     if ((bstr = pParams.Item(i).get_Name().Contains("Equipment-Nummer") == true))
                     {
+                        iMatch++;
                         try
                         {
                             pParam = pParams.Item(strProp + "Equipment-Nummer");
@@ -246,6 +272,7 @@ namespace cen_SPIN_New_Document
                     }
                     else if ((bstr = pParams.Item(i).get_Name().Contains("Betriebsmittelart") == true))
                     {
+                        iMatch++;
                         try
                         {
                             pParam = pParams.Item(strProp + "Betriebsmittelart");
@@ -259,6 +286,7 @@ namespace cen_SPIN_New_Document
                     }
                     else if ((bstr = pParams.Item(i).get_Name().Contains("Bezeichnung") == true))
                     {
+                        iMatch++;
                         try
                         {
                             pParam = pParams.Item(strProp + "Bezeichnung");
@@ -282,7 +310,7 @@ namespace cen_SPIN_New_Document
 
                 for (int i = 1; i <= pParams.Count; i++)
                 {
-
+                    iMatch++;
                     if ((bstr = pParams.Item(i).get_Name().Contains("Equipment-Nummer") == true))
                     {
                         try
@@ -298,6 +326,7 @@ namespace cen_SPIN_New_Document
                     }
                     else if ((bstr = pParams.Item(i).get_Name().Contains("Betriebsmittelart") == true))
                     {
+                        iMatch++;
                         try
                         {
                             pParam = pParams.Item(strProp + "Betriebsmittelart");
@@ -311,6 +340,7 @@ namespace cen_SPIN_New_Document
                     }
                     else if ((bstr = pParams.Item(i).get_Name().Contains("Bezeichnung") == true))
                     {
+                        iMatch++;
                         try
                         {
                             pParam = pParams.Item(strProp + "Bezeichnung");
@@ -324,6 +354,66 @@ namespace cen_SPIN_New_Document
                     }
                 }
 
+            }
+            if (my_Static.DocType == "Drawing")
+            {
+                drawingDocument = catiaapp.ActiveDocument as DrawingDocument;
+                pParams = drawingDocument.Parameters;
+
+                for (int i = 1; i <= pParams.Count; i++)
+                {
+
+                    if ((bstr = pParams.Item(i).get_Name().Contains("Equipment-Nummer") == true))
+                    {
+                        iMatch++;
+                        try
+                        {
+                            pParam = pParams.Item(strDrw + "Equipment-Nummer");
+                            pParam.ValuateFromString(textBoxEquipmentNumber.Text);
+                        }
+                        catch
+                        {
+                            pParam = pParams.Item("Equipment-Nummer");
+                            pParam.ValuateFromString(textBoxEquipmentNumber.Text);
+                        }
+                    }
+                    else if ((bstr = pParams.Item(i).get_Name().Contains("Betriebsmittelart") == true))
+                    {
+                        iMatch++;
+                        try
+                        {
+                            pParam = pParams.Item(strDrw + "Betriebsmittelart");
+                            pParam.ValuateFromString(comboBoxBetriebsmittelart.Text);
+                        }
+                        catch
+                        {
+                            pParam = pParams.Item("Betriebsmittelart");
+                            pParam.ValuateFromString(comboBoxBetriebsmittelart.Text);
+                        }
+                    }
+                    else if ((bstr = pParams.Item(i).get_Name().Contains("Bezeichnung") == true))
+                    {
+                        iMatch++;
+                        try
+                        {
+                            pParam = pParams.Item(strDrw + "Bezeichnung");
+                            pParam.ValuateFromString(textBox_Bezeichnung2.Text);
+                        }
+                        catch
+                        {
+                            pParam = pParams.Item("Bezeichnung");
+                            pParam.ValuateFromString(textBox_Bezeichnung2.Text);
+                        }
+                    }
+                }
+
+            }
+
+            if(iMatch == 0)
+            {
+                my_Static.logger = new FileLogger(LogLevels.Error, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Error.log");
+                my_Static.logger.Log(LogLevels.Error, "benötigter Parameter im Dokument nicht vorhanden");
+                my_Static.logger.EndLogging();
             }
 
 
@@ -353,6 +443,11 @@ namespace cen_SPIN_New_Document
 
             if (oCD5Engine.IsConnected())
             {
+                ILogger logger_1 = new FileLogger(LogLevels.Run, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Run.log");
+                logger_1.Log(LogLevels.Run, " Insert Template  Connect to CD5EngineV6R2015");
+                logger_1.EndLogging();
+
+
                 oTemplate = null;
                 oTemplateTypes = oCD5Engine.TemplateTypes;
 
@@ -390,6 +485,10 @@ namespace cen_SPIN_New_Document
             }
             else
             {
+                my_Static.logger = new FileLogger(LogLevels.Error, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Error.log");
+                my_Static.logger.Log(LogLevels.Error, "CD5_insert_CATPart nicht an 3DExperience angemeldet.");
+                my_Static.logger.EndLogging();
+
                 MessageBox.Show("Sie sind nicht an 3DExperience angemeldet.", "Abbruch");
                 System.Windows.Forms.Application.Exit();
             }
@@ -414,6 +513,10 @@ namespace cen_SPIN_New_Document
 
             if (oCD5Engine.IsConnected())
             {
+                ILogger logger_1 = new FileLogger(LogLevels.Run, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Run.log");
+                logger_1.Log(LogLevels.Run, " open File  Connect to CD5EngineV6R2015");
+                logger_1.EndLogging();
+
                 oTemplate = null;
                 oTemplateTypes = oCD5Engine.TemplateTypes;
 
@@ -472,6 +575,10 @@ namespace cen_SPIN_New_Document
             }
             else
             {
+                my_Static.logger = new FileLogger(LogLevels.Error, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Error.log");
+                my_Static.logger.Log(LogLevels.Error, "CD5_openFile nicht an 3DExperience angemeldet.");
+                my_Static.logger.EndLogging();
+
                 MessageBox.Show("Sie sind nicht an 3DExperience angemeldet.", "Abbruch");
                 System.Windows.Forms.Application.Exit();
             }
@@ -488,9 +595,18 @@ namespace cen_SPIN_New_Document
 
             if (oCD5Engine.IsConnected())
             {
+                ILogger logger_1 = new FileLogger(LogLevels.Run, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Run.log");
+                logger_1.Log(LogLevels.Run, " Item_count  Connect to CD5EngineV6R2015");
+                logger_1.EndLogging();
                 //AutonameSeries[0] = oCD5Engine.GetAutonameSeries("CATIA Embedded Component");
                 var Autoname = oCD5Engine.GenerateAutoname(strSizeType, 1);
                 textBox_Name.Text = Autoname.GetValue(0).ToString();
+            }
+            else
+            {
+                my_Static.logger = new FileLogger(LogLevels.Error, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Error.log");
+                my_Static.logger.Log(LogLevels.Error, "CD5_Item_count nicht an 3DExperience angemeldet.");
+                my_Static.logger.EndLogging();
             }
 
         }
@@ -514,6 +630,10 @@ namespace cen_SPIN_New_Document
 
             if (oCD5Engine.IsConnected())
             {
+                ILogger logger_1 = new FileLogger(LogLevels.Run, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Run.log");
+                logger_1.Log(LogLevels.Run, " CD5 Connect  Connect to CD5EngineV6R2015");
+                logger_1.EndLogging();
+
                 oTemplate = null;
                 oTemplateTypes = oCD5Engine.TemplateTypes;
 

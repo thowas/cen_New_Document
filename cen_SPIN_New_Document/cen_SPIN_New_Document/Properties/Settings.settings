@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="cen_SPIN_New_Document.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="cen_3DEXPERIENCE_New_Document.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="Betriebsmittelart" Type="System.Collections.Specialized.StringCollection" Scope="Application">
@@ -8,6 +8,12 @@
   &lt;string&gt;Spritzwerkzeug&lt;/string&gt;
   &lt;string&gt;Duroplastwerkezug&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="Kunden_Name" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Hirschmann</Value>
+    </Setting>
+    <Setting Name="LogFile" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
