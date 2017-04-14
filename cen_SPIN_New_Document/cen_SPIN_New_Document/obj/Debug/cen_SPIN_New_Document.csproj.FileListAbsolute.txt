@@ -35,3 +35,4 @@ D:\ProgramData\GitHub\CAx_Integration 3DExperience\cen_New_Document\cen_SPIN_New
 D:\ProgramData\GitHub\CAx_Integration 3DExperience\cen_New_Document\cen_SPIN_New_Document\cen_SPIN_New_Document\obj\Debug\cen_SPIN_New_Document.csproj.GenerateResource.Cache
 D:\ProgramData\GitHub\CAx_Integration 3DExperience\cen_New_Document\cen_SPIN_New_Document\cen_SPIN_New_Document\obj\Debug\cen_3DEXPERIENCE_New_Document.exe
 D:\ProgramData\GitHub\CAx_Integration 3DExperience\cen_New_Document\cen_SPIN_New_Document\cen_SPIN_New_Document\obj\Debug\cen_3DEXPERIENCE_New_Document.pdb
+D:\ProgramData\GitHub\CAx_Integration 3DExperience\cen_New_Document\cen_SPIN_New_Document\cen_SPIN_New_Document\obj\Debug\cen_SPIN_New_Document.csprojResolveAssemblyReference.cache

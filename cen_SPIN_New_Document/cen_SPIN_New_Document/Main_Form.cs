@@ -60,7 +60,7 @@ namespace cen_3DEXPERIENCE_New_Document
         {
             my_Static.logger = new FileLogger(LogLevels.Error, my_Static.User_Tmp_Path + my_Static.KundenName + "\\.log\\Error.log");
 
-            cen_3DEXPERIENCE_New_Document.Properties.Settings.Default.Save();
+            Properties.Settings.Default.Save();
             string[] setting = new string[Properties.Settings.Default.Betriebsmittelart.Count];
             Properties.Settings.Default.Betriebsmittelart.CopyTo(setting, 0);
 
